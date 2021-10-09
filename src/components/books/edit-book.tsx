@@ -1,46 +1,31 @@
-import React, {useState} from 'react'
+import axios from 'axios'
+import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router'
+
 import Edit from '../../layouts/crud-layouts/edit'
+import { BookModel } from "./utils/interfaces"
 
-const data = [
-    {
-        name: "book 1",
-        author: "author 1",
-        genre: ["children's book"],
-        available_number: 3,
-    },
-    {
-        name: "book 2",
-        author: "author 2",
-        genre: ["fantasy", "ancient"],
-        available_number: 0,
-    },
-    {
-        name: "book 3",
-        author: "author 3",
-        genre: ["superhero"],
-        available_number: 7,
-    },
-]
-
-const EditBook = (
-    // {data}:
-    // {data: {
-    //     bookName: string,
-    //     authorName: string,
-    //     availableNumber: number,
-    //     genre: string[],
-    // }}
-) => {
-    const params: {id: string} = useParams();
-    const id = parseInt(params.id);
-
-    const [book, setBook] = useState({
-        bookName: data[id].name,
-        authorName: data[id].author,
-        availableNumber: data[id].available_number,
-        genres: data[id].genre
+const EditBook = () => {
+    const [book, setBook] = useState<BookModel>({
+        name: '',
+        author: '',
+        availableNumber: 0,
+        genres: [''],
+        _id: '',
     })
+    const params: {id: string} = useParams()
+    const id = params.id
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/v1/books/${id}`)
+            .then((res: {
+                data: {
+                    book: BookModel
+                }
+            }) => {
+                setBook(res.data.book)
+            })
+    }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const name = event.target.name
@@ -58,7 +43,10 @@ const EditBook = (
     const submitForm = (event: React.FormEvent) => {
         event.preventDefault()
 
-        console.log(book);
+        axios.patch(`http://localhost:5000/api/v1/books/${id}`, book)
+            .then(res => console.log(res.data))
+
+        window.location.href = '/books'
     }
 
     return (
@@ -68,16 +56,16 @@ const EditBook = (
                     <div className="col-md-6">
                         <label htmlFor="">Book Name: *</label>
                         <input required type="text" className="form-control"
-                            name="bookName" 
-                            value={book.bookName}
+                            name="name" 
+                            value={book.name}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="col-md-6">
                         <label htmlFor="">Author Name: *</label>
                         <input required type="text" className="form-control"
-                            name="authorName" 
-                            value={book.authorName}
+                            name="author" 
+                            value={book.author}
                             onChange={handleChange}
                         />
                     </div>

@@ -5,7 +5,6 @@ import { BookOpen, User, DollarSign, Archive, Truck } from 'react-feather'
 const Sidebar = () => {
     const { pathname } = useLocation() 
 
-    console.log(pathname);
     return (
         <aside className={styles.sidebar}>
             <div className={styles.logoHolder}>

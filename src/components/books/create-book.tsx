@@ -1,10 +1,11 @@
+import axios from "axios"
 import React, { useState } from "react"
 import Create from "../../layouts/crud-layouts/create"
 
 const CreateBook = () => {
     const [book, setBook] = useState({
-        bookName: '',
-        authorName: '',
+        name: '',
+        author: '',
         availableNumber: 0,
         genres: ['']
     })
@@ -25,7 +26,10 @@ const CreateBook = () => {
     const submitForm = (event: React.FormEvent) => {
         event.preventDefault()
 
-        console.log(book);
+        axios.post('http://localhost:5000/api/v1/books', book)
+            .then(res => console.log(res.data))
+
+        window.location.href = '/books'
     }
 
     return (
@@ -35,16 +39,16 @@ const CreateBook = () => {
                     <div className="col-md-6">
                         <label htmlFor="">Book Name: *</label>
                         <input required type="text" className="form-control"
-                            name="bookName" 
-                            value={book.bookName}
+                            name="name" 
+                            value={book.name}
                             onChange={handleChange}
                         />
                     </div>
                     <div className="col-md-6">
                         <label htmlFor="">Author Name: *</label>
                         <input required type="text" className="form-control"
-                            name="authorName" 
-                            value={book.authorName}
+                            name="author" 
+                            value={book.author}
                             onChange={handleChange}
                         />
                     </div>
@@ -57,8 +61,8 @@ const CreateBook = () => {
                         />
                     </div>
                     <div className="col-md-6 mt-4">
-                        <label htmlFor="">Genre: *</label>
-                        <input required type="text" className="form-control" 
+                        <label htmlFor="">Genre: </label>
+                        <input type="text" className="form-control" 
                             name="genres"
                             value={book.genres}
                             onChange={handleChange}

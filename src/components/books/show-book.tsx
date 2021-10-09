@@ -1,52 +1,51 @@
-import React from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+
 import Show from '../../layouts/crud-layouts/show'
-
-const data = [
-    {
-        name: "book 1",
-        author: "author 1",
-        genre: ["children's book"],
-        available_number: 3,
-    },
-    {
-        name: "book 2",
-        author: "author 2",
-        genre: ["fantasy", "ancient"],
-        available_number: 0,
-    },
-    {
-        name: "book 3",
-        author: "author 3",
-        genre: ["superhero"],
-        available_number: 7,
-    },
-]
-
+import { BookModel } from "./utils/interfaces"
 
 const ShowBook = () => {
+    const [book, setBook] = useState<BookModel>({
+        name: '',
+        author: '',
+        availableNumber: 0,
+        genres: [''],
+        _id: '',
+    })
     const params: {id: string} = useParams()
-    const id = parseInt(params.id)
+    const id = params.id
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/v1/books/${id}`)
+            .then((res: {
+                data: {
+                    book: BookModel
+                }
+            }) => {
+                setBook(res.data.book)
+            })
+    }, [])
 
     return (
         <Show title="Book Detail" id={params.id} route="books">
             <div className="row">
                 <div className="col-md-6">
-                    <span className="font-bold">Book: </span> {data[id].name}
+                    <span className="font-bold">Book: </span> {book.name}
                 </div>
                 <div className="col-md-6">
-                    <span className="font-bold">Author: </span> {data[id].author}
+                    <span className="font-bold">Author: </span> {book.author}
                 </div>
                 <div className="col-md-6 mt-4">
                     <span className="font-bold">Genres: </span> 
                     {
-                        data[id].genre.map((genre, i) => (
+                        book.genres?.map((genre, i) => (
                             <span className="badge bg-success rounded-pill" key={i}>{genre}</span>
                         ))
                     }
                 </div>
                 <div className="col-md-6 mt-4">
-                    <span className="font-bold">Available Number: </span> {data[id].available_number}
+                    <span className="font-bold">Available Number: </span> {book.availableNumber}
                 </div>
             </div>
         </Show>
