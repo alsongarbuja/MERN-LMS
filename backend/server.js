@@ -11,6 +11,7 @@ const connectDB = require('./db/connection')
 
 // routes
 const bookRouter = require('./routes/book')
+const supplierRouter = require('./routes/supplier')
 
 // env variables
 const PORT = process.env.PORT
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1/books', bookRouter)
+app.use('/api/v1/suppliers', supplierRouter)
 
 const start = async () => {
     try {
