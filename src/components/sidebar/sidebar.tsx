@@ -3,7 +3,8 @@ import styles from './sidebar.module.css'
 import { BookOpen, User, DollarSign, Archive, Truck } from 'react-feather'
 
 const Sidebar = () => {
-    const { pathname } = useLocation() 
+    const { pathname } = useLocation()
+    const path = pathname.split('/')
 
     return (
         <aside className={styles.sidebar}>
@@ -29,7 +30,7 @@ const Sidebar = () => {
                         </li>
                     </Link>
                     <Link to="/books">
-                        <li className={`${styles.sidebarItem} ${pathname==='/books'?styles.activeMenu:''}`}>
+                        <li className={`${styles.sidebarItem} ${path[1]==='books'?styles.activeMenu:''}`}>
                             <span>
                             <BookOpen />
                             </span>
@@ -45,7 +46,7 @@ const Sidebar = () => {
                         </li>
                     </Link>
                     <Link to="/suppliers">
-                        <li className={`${styles.sidebarItem} ${pathname==='/suppliers'?styles.activeMenu:''}`}>
+                        <li className={`${styles.sidebarItem} ${path[1]==='suppliers'?styles.activeMenu:''}`}>
                             <span>
                                 <Truck />
                             </span>
