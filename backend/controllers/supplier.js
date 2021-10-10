@@ -14,7 +14,7 @@ const getSupplier = async (req, res) => {
 
 const addSupplier = async (req, res) => {
     await Supplier.create(req.body)
-    res.Status(StatusCodes.CREATED).json('Supplier Added Successfully')
+    res.status(StatusCodes.CREATED).json('Supplier Added Successfully')
 }
 
 const updateSupplier = async (req, res) => {
