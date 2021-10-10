@@ -12,6 +12,7 @@ const EditBook = () => {
         availableNumber: 0,
         genres: [''],
         _id: '',
+        description: '',
     })
     const params: {id: string} = useParams()
     const id = params.id
@@ -27,7 +28,7 @@ const EditBook = () => {
             })
     }, [])
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const name = event.target.name
         const value = event.target.value
 
@@ -84,6 +85,16 @@ const EditBook = () => {
                             value={book.genres}
                             onChange={handleChange}
                         />
+                    </div>
+                </div>
+                <div className="form-group row mt-4">
+                    <div className="col-12">
+                        <label htmlFor="">Description: *</label>
+                        <textarea required name="description" className="form-control" 
+                            cols={30} rows={10}
+                            onChange={handleChange}
+                            value={book.description}
+                        ></textarea>
                     </div>
                 </div>
             </form>

@@ -12,6 +12,7 @@ const ShowBook = () => {
         availableNumber: 0,
         genres: [''],
         _id: '',
+        description: '',
     })
     const params: {id: string} = useParams()
     const id = params.id
@@ -40,12 +41,21 @@ const ShowBook = () => {
                     <span className="font-bold">Genres: </span> 
                     {
                         book.genres?.map((genre, i) => (
-                            <span className="badge bg-success rounded-pill" key={i}>{genre}</span>
+                            <span className="badge bg-success rounded-pill mx-1" key={i}>{genre}</span>
                         ))
                     }
                 </div>
                 <div className="col-md-6 mt-4">
                     <span className="font-bold">Available Number: </span> {book.availableNumber}
+                </div>
+            </div>
+            <div className="row mt-4">
+                <div className="col-12">
+                    <span className="font-bold">Description: </span><br />
+                    <hr />
+                    {
+                        book.description
+                    }
                 </div>
             </div>
         </Show>

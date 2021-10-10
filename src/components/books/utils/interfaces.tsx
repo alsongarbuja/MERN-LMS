@@ -3,5 +3,6 @@ export interface BookModel {
     author: string,
     availableNumber: number,
     genres: string[],
-    _id: string
+    _id: string,
+    description: '',
 }
