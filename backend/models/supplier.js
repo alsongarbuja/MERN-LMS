@@ -16,6 +16,10 @@ const supplierSchema = new mongoose.Schema({
         type: String,
         required: [ true, 'Address is required' ]
     },
+    numberOfBooksProvided: {
+        type: Number,
+        default: 0,
+    },
 }, {
     timestamps: true,
 })

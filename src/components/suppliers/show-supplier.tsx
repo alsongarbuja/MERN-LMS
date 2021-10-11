@@ -10,7 +10,8 @@ const ShowSupplier = () => {
         name: '',
         contact: 0,
         address: '',
-        _id: ''
+        _id: '',
+        numberOfBooksProvided: 0,
     })
     const params: {id: string} = useParams()
     const id = params.id
@@ -30,16 +31,19 @@ const ShowSupplier = () => {
         <Show title="Supplier Detail" id={params.id} route="Suppliers">
             <div className="row">
                 <div className="col-md-6">
-                    <span className="font-bold">Supplier Name: </span> {supplier.name}
+                    <span className="fw-bold">Supplier Name: </span> {supplier.name}
                 </div>
                 <div className="col-md-6">
-                    <span className="font-bold">Supplier Address: </span> {supplier.address}
+                    <span className="fw-bold">Supplier Address: </span> {supplier.address}
                 </div>
                 <div className="col-md-6 mt-4">
-                    <span className="font-bold">Supplier Contact: </span> 
+                    <span className="fw-bold">Supplier Contact: </span> 
                     {
                         supplier.contact
                     }
+                </div>
+                <div className="col-md-6 mt-4">
+                    <span className="fw-bold">Number of books provided: </span> {supplier.numberOfBooksProvided}
                 </div>
             </div>
         </Show>

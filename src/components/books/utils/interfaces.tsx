@@ -4,5 +4,6 @@ export interface BookModel {
     availableNumber: number,
     genres: string[],
     _id: string,
-    description: '',
+    description: string,
+    supplierId: string,
 }

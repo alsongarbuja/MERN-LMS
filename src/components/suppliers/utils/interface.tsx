@@ -3,4 +3,5 @@ export interface SupplierModel {
     contact: number,
     address: string,
     _id: string,
+    numberOfBooksProvided?: number,
 }

@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router'
 
 import Edit from '../../layouts/crud-layouts/edit'
+import { SupplierModel } from '../suppliers/utils/interface'
 import { BookModel } from "./utils/interfaces"
 
 const EditBook = () => {
@@ -13,11 +14,21 @@ const EditBook = () => {
         genres: [''],
         _id: '',
         description: '',
+        supplierId: '',
     })
+    const [suppliers, setSuppliers] = useState<SupplierModel[]>([])
+
     const params: {id: string} = useParams()
     const id = params.id
 
     useEffect(() => {
+        axios.get('http://localhost:5000/api/v1/supplier')
+            .then((res: {
+                data: {
+                    suppliers: SupplierModel[]
+                }
+            }) => setSuppliers(res.data.suppliers))
+
         axios.get(`http://localhost:5000/api/v1/books/${id}`)
             .then((res: {
                 data: {
@@ -28,7 +39,7 @@ const EditBook = () => {
             })
     }, [])
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const name = event.target.name
         const value = event.target.value
 
@@ -48,6 +59,10 @@ const EditBook = () => {
             .then(res => console.log(res.data))
 
         window.location.href = '/books'
+    }
+
+    const isSelected = (id: string, _id: string) => {
+        return (id===_id)?'selected':''
     }
 
     return (
@@ -79,12 +94,26 @@ const EditBook = () => {
                         />
                     </div>
                     <div className="col-md-6 mt-4">
-                        <label htmlFor="">Genre: *</label>
-                        <input required type="text" className="form-control" 
+                        <label htmlFor="">Genre: </label>
+                        <input type="text" className="form-control" 
                             name="genres"
                             value={book.genres}
                             onChange={handleChange}
                         />
+                    </div>
+                    <div className="col-md-6 mt-4">
+                        <label htmlFor="">Supplier: *</label>
+                        <select required name="supplierId" 
+                            value={book.supplierId}
+                            onChange={handleChange}
+                            >
+                            <option value="">--Select supplier--</option>
+                            {
+                                suppliers.map(supplier => (
+                                    <option value={supplier._id} {...isSelected(book.supplierId, supplier._id)}>{supplier.name}</option>
+                                ))
+                            }
+                        </select>
                     </div>
                 </div>
                 <div className="form-group row mt-4">

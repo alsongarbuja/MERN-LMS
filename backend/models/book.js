@@ -21,6 +21,10 @@ const bookSchema = new mongoose.Schema({
     description: {
         type: String,
         required: [ true, 'Description is required' ]
+    },
+    supplierId: {
+        type: String,
+        required: [ true, 'Supplier id required' ]
     }
 }, {
     timestamps: true
