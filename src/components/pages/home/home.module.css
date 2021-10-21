@@ -1,0 +1,13 @@
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+
+    background-image: url('https://cdn.pixabay.com/photo/2016/12/29/21/17/notebook-1939358__340.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
