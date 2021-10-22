@@ -11,6 +11,7 @@ const EditSupplier = () => {
         address: '',
         contact: 0,
         _id: '',
+        numberOfBooksProvided: 0,
     })
     const params: {id: string} = useParams()
     const id = params.id
