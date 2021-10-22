@@ -12,6 +12,7 @@ const connectDB = require('./db/connection')
 // routes
 const bookRouter = require('./routes/book')
 const supplierRouter = require('./routes/supplier')
+const userRouter = require('./routes/user')
 
 // env variables
 const PORT = process.env.PORT
@@ -19,13 +20,11 @@ const PORT = process.env.PORT
 //middlewares
 app.use(cors())
 app.use(express.json())
+const authenticationMiddleware = require('./middlewares/auth')
 
-app.get('/', (req, res) => {
-    res.json('hello')
-})
-
-app.use('/api/v1/books', bookRouter)
-app.use('/api/v1/suppliers', supplierRouter)
+app.use('/api/v1/books', authenticationMiddleware, bookRouter)
+app.use('/api/v1/suppliers', authenticationMiddleware, supplierRouter)
+app.use('/api/v1/users', userRouter)
 
 const start = async () => {
     try {
