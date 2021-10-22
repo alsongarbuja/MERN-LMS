@@ -13,6 +13,13 @@ const CreateBook = () => {
         supplierId: '',
     })
     const [suppliers, setSuppliers] = useState<SupplierModel[]>([])
+    const [selectedSupplier, setSelectedSupplier] = useState<SupplierModel>({
+        _id: '',
+        address: '',
+        contact: 0,
+        name: '',
+        numberOfBooksProvided: 1
+    })
 
     useEffect(() =>{
         axios.get('http://localhost:5000/api/v1/suppliers')
@@ -42,8 +49,17 @@ const CreateBook = () => {
         axios.post('http://localhost:5000/api/v1/books', book)
             .then(res => console.log(res.data))
 
-        const sup = {...suppliers, numberOfBooksProvided: book.availableNumber}
-
+        axios.get(`http://localhost:5000/api/v1/suppliers/${book.supplierId}`)
+            .then((res : {
+                data: {
+                    supplier : SupplierModel
+                }
+            }) => setSelectedSupplier(res.data.supplier))
+            
+        const totalBooksProvided = selectedSupplier.numberOfBooksProvided + book.availableNumber
+        
+        const sup = {...selectedSupplier, numberOfBooksProvided: totalBooksProvided}
+        
         axios.patch(`http://localhost:5000/api/v1/suppliers/${book.supplierId}`, sup)
             .then(res => console.log(res.data))
 
@@ -96,7 +112,7 @@ const CreateBook = () => {
                             <option value="">--Select supplier--</option>
                             {
                                 suppliers.map(supplier => (
-                                    <option value={supplier._id}>{supplier.name}</option>
+                                    <option key={supplier._id} value={supplier._id}>{supplier.name}</option>
                                 ))
                             }
                         </select>
