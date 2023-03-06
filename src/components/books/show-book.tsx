@@ -37,6 +37,7 @@ const ShowBook = () => {
             }) => {
                 setBook(res.data.book)
             })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {

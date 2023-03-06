@@ -37,6 +37,7 @@ const EditBook = () => {
             }) => {
                 setBook(res.data.book)
             })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {

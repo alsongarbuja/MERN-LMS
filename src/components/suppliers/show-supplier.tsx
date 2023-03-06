@@ -25,6 +25,7 @@ const ShowSupplier = () => {
             }) => {
                 setSupplier(res.data.supplier)
             })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

@@ -26,6 +26,7 @@ const EditSupplier = () => {
                 console.log(res.data.supplier);
                 setSupplier(res.data.supplier)
             })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
